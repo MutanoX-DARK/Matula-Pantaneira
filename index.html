@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matula Pantaneira - O Restaurante Premiado do Prato Típico Oficial de Cáceres</title>
+    <style>
+        /* Reset e Estilos Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            background: #F5F5F5; /* Cinza claro para fundo geral */
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Elementos decorativos para letras não soltas */
+        .section-divider {
+            width: 100px;
+            height: 2px;
+            background: #D2B48C;
+            margin: 2rem auto;
+            opacity: 0.7;
+            transition: width 0.5s ease;
+        }
+        section:hover .section-divider {
+            width: 200px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(51, 51, 51, 0.9); /* Cinza escuro */
+            z-index: 1000;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        header.scrolled {
+            background: rgba(51, 51, 51, 1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #D2B48C; /* Bege dourado sutil */
+            transition: color 0.3s ease;
+        }
+        .logo:hover {
+            color: #A0522D;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        .nav-links a {
+            color: #FFF;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #D2B48C;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .nav-links a:hover {
+            color: #D2B48C;
+            transform: translateY(-2px);
+        }
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #FFF;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section com Parallax suave */
+        #hero {
+            height: 100vh;
+            background: #EDEDED; /* Cinza claro neutro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #333;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(210, 180, 140, 0.1); /* Bege sutil overlay */
+            transition: opacity 0.5s ease;
+        }
+        #hero:hover::before {
+            opacity: 0.2;
+        }
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease forwards;
+            background: rgba(255,255,255,0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+            background: rgba(255,255,255,0.8);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #A0522D; /* Marrom sutil */
+            color: #FFF;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+        .cta-button:hover {
+            background: #8B4513;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            transform: translateY(-3px);
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Seções Gerais */
+        section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.5);
+            z-index: -1;
+            transition: background 0.5s ease;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #A0522D; /* Marrom profissional */
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 2px;
+            background: #D2B48C;
+            margin: 1rem auto 0;
+            transition: width 0.5s ease;
+        }
+        h2:hover::after {
+            width: 100px;
+        }
+
+        /* Sobre com mais detalhes */
+        #sobre {
+            background: #FFF;
+        }
+        .sobre-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: rgba(245,245,245,0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .sobre-text {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+        .sobre-text p {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(255,255,255,0.9);
+            border-left: 4px solid #A0522D;
+            transition: background 0.3s ease;
+        }
+        .sobre-text p:hover {
+            background: rgba(255,255,255,1);
+        }
+        .sobre-placeholder {
+            height: 300px;
+            background: #DCDCDC; /* Cinza claro para placeholder */
+            border-radius: 5px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease, box-shadow 0.3s ease;
+        }
+        .sobre-placeholder:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .sobre-visible .sobre-text,
+        .sobre-visible .sobre-placeholder {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Pratos com mais itens e detalhes */
+        #pratos {
+            background: #F5F5F5;
+        }
+        .pratos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .prato-card {
+            background: #FFF;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .prato-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .prato-placeholder {
+            height: 200px;
+            background: #DCDCDC;
+            transition: filter 0.3s ease;
+        }
+        .prato-card:hover .prato-placeholder {
+            filter: brightness(1.1);
+        }
+        .prato-card h3 {
+            padding: 1rem;
+            color: #A0522D;
+            background: rgba(245,245,245,0.8);
+            transition: background 0.3s ease;
+        }
+        .prato-card h3:hover {
+            background: rgba(245,245,245,1);
+        }
+        .prato-card p {
+            padding: 0 1rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Horários */
+        #horarios {
+            background: #FFF;
+            text-align: center;
+        }
+        .horarios-content {
+            background: rgba(245,245,245,0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .horarios-content:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .horarios-content ul {
+            list-style: none;
+            padding: 0;
+        }
+        .horarios-content li {
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .horarios-content li:hover {
+            background: #FFF;
+        }
+
+        /* Depoimentos */
+        #depoimentos {
+            background: #F5F5F5;
+        }
+        .depoimentos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .depoimento-card {
+            background: #FFF;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .depoimento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .depoimento-card p {
+            font-style: italic;
+        }
+        .depoimento-card cite {
+            display: block;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: #A0522D;
+        }
+
+        /* Delivery */
+        #delivery {
+            background: #A0522D;
+            color: #FFF;
+            text-align: center;
+        }
+        .delivery-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0,0,0,0.1);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+        .endereco {
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .endereco:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #FFF;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+        }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #D2B48C;
+            opacity: 0.5;
+        }
+        .social-links a {
+            color: #D2B48C;
+            margin: 0 1rem;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #A0522D;
+            transform: scale(1.1);
+        }
+        .creditos {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+        }
+        .creditos a {
+            color: #D2B48C;
+            text-decoration: none;
+        }
+        .creditos a:hover {
+            color: #A0522D;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .mobile-menu {
+                display: flex;
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            .sobre-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animações em Scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">Matula Pantaneira</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Início</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#pratos">Pratos</a></li>
+                <li><a href="#horarios">Horários</a></li>
+                <li><a href="#depoimentos">Depoimentos</a></li>
+                <li><a href="#delivery">Delivery</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content container">
+            <h1>O Restaurante Premiado do Prato Típico Oficial de Cáceres</h1>
+            <p>Descubra o autêntico sabor pantaneiro com nosso Pintado à Bororo e outros pratos tradicionais. Serviço exclusivo de delivery, trazendo o Pantanal diretamente para sua mesa.</p>
+            <a href="#delivery" class="cta-button">Faça Seu Pedido Agora</a>
+        </div>
+    </section>
+
+    <section id="sobre" class="container">
+        <h2>Sobre Nós</h2>
+        <div class="section-divider"></div>
+        <div class="sobre-content">
+            <div class="sobre-text">
+                <p>O Matula Pantaneira nasceu de um sonho: valorizar a nossa cozinha pantaneira, destacando sabores autênticos e tradições do Pantanal mato-grossense.</p>
+                <p>Especializado na culinária tradicional de Cáceres, MT, somos premiados pelo Prato Típico Oficial – o Filé de Pintado à Bororo. Sob o comando do chef Felipe Américo, utilizamos ingredientes frescos do Pantanal para criar experiências gastronômicas únicas e memoráveis.</p>
+                <p>Operamos exclusivamente via delivery, garantindo qualidade, frescor e conveniência para nossos clientes em Cáceres e região.</p>
+            </div>
+            <div class="sobre-placeholder"></div> <!-- Placeholder para foto -->
+        </div>
+    </section>
+
+    <section id="pratos">
+        <div class="container">
+            <h2>Nossos Pratos</h2>
+            <div class="section-divider"></div>
+            <div class="pratos-grid">
+                <div class="prato-card animate-on-scroll">
+                    <div class="prato-placeholder"></div> <!-- Placeholder -->
+                    <h3>Pintado à Bororo</h3>
+                    <p>Prato oficial de Cáceres: filé de pintado grelhado com molho especial bororo, acompanhado de arroz carreteiro e mandioca frita. Uma explosão de sabores pantaneiros.</p>
+                </div>
+                <div class="prato-card animate-on-scroll">
+                    <div class="prato-placeholder"></div>
+                    <h3>Matula Pantaneira</h3>
+                    <p>Cestinhas crocantes recheadas com carne de sol desfiada e creme de mandioca, temperadas com ervas locais. Perfeito para compartilhar ou como entrada.</p>
+                </div>
+                <div class="prato-card animate-on-scroll">
+                    <div class="prato-placeholder"></div>
+                    <h3>Bobó de Pintado</h3>
+                    <p>Bem servido e cremoso, nosso bobó é feito com pintado fresco, mandioca e temperos pantaneiros. Uma opção suculenta para os dias quentes.</p>
+                </div>
+                <div class="prato-card animate-on-scroll">
+                    <div class="prato-placeholder"></div>
+                    <h3>Feijão Gordo</h3>
+                    <p>Feijão rajado cozido com carne seca, linguiça e temperos irresistíveis. Um prato brasileiro clássico, cheio de sabor e tradição.</p>
+                </div>
+                <div class="prato-card animate-on-scroll">
+                    <div class="prato-placeholder"></div>
+                    <h3>Opções Diárias</h3>
+                    <p>Pratos variados com peixes e carnes locais, incluindo especiais para datas como Sexta-feira Santa. Consulte nosso Instagram para o menu atual e promoções.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="horarios">
+        <div class="container">
+            <h2>Horários de Funcionamento</h2>
+            <div class="section-divider"></div>
+            <div class="horarios-content">
+                <p>Estamos prontos para servir o melhor da culinária pantaneira!</p>
+                <ul>
+                    <li>Aberto todos os dias para almoço, exceto às quartas-feiras.</li>
+                    <li>Horário: Das 11h às 14h (pode variar em feriados; confira no Instagram).</li>
+                    <li>Somente delivery: Pedidos via app ou WhatsApp.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="depoimentos">
+        <div class="container">
+            <h2>Depoimentos de Clientes</h2>
+            <div class="section-divider"></div>
+            <div class="depoimentos-grid">
+                <div class="depoimento-card animate-on-scroll">
+                    <p>"O Pintado à Bororo é divino! Sabor autêntico que me transporta pro Pantanal."</p>
+                    <cite>- Maria Silva, Cáceres</cite>
+                </div>
+                <div class="depoimento-card animate-on-scroll">
+                    <p>"Delivery rápido e pratos sempre quentinhos. Recomendo o Bobó!"</p>
+                    <cite>- João Oliveira, Cliente Fiel</cite>
+                </div>
+                <div class="depoimento-card animate-on-scroll">
+                    <p>"Tradição pantaneira na mesa de casa. Perfeito para a família."</p>
+                    <cite>- Ana Mendes, Cáceres</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="delivery">
+        <div class="container">
+            <h2>Delivery Exclusivo</h2>
+            <div class="section-divider"></div>
+            <div class="delivery-info">
+                <p>Peça de forma simples e rápida, com entrega em Cáceres e região.</p>
+                <a href="https://pedido.anota.ai/loja/matula-pantaneira" class="cta-button" style="background: #FFF; color: #A0522D;">Pedido Online</a>
+                <div class="endereco">📍 Rua Seis de Outubro, 412, Centro, Cáceres - MT</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Matula Pantaneira. Todos os direitos reservados.</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/matula.caceres/">Instagram</a>
+                <a href="https://linktr.ee/Matulapantaneira">Linktree</a>
+            </div>
+            <div class="creditos">
+                Site criado por <a href="https://www.instagram.com/mutanomodsx">MutanoX</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Animações em scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll, .sobre-text, .sobre-placeholder').forEach(el => {
+            observer.observe(el);
+        });
+        document.querySelector('.sobre-content').classList.add('sobre-visible');
+
+        // Smooth scroll para links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.background = 'rgba(51,51,51,0.9)';
+            navLinks.style.width = '100%';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.padding = '1rem 0';
+            navLinks.style.alignItems = 'center';
+        });
+    </script>
+</body>
+</html>
